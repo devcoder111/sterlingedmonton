@@ -107,6 +107,7 @@ export default {
       var selectedMarker = filterMarkers[0];
       console.log("openMarker", selectedMarker);
       google.maps.event.trigger(selectedMarker, "click");
+
       // google.maps.event.addListener(selectedMarker, "click", function() {
       //   // do something with this marker ...
       //   console.log("$this-", $this, $this.map);
@@ -218,7 +219,19 @@ export default {
       });
       this.marker_clusterer = new MarkerClusterer(this.map, [], {
         imagePath:
-          "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m",
+          "https://sterlingedmonton.com/wp-content/themes/sterling/assets/images/map-icon/m",
+        // imagePath:
+        //   "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m",
+        // styles: [
+        //   {
+        //     url:
+        //       "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m1.png",
+        //     textSize: 12,
+        //     width: 42,
+        //     height: 42,
+        //     textColor: "black",
+        //   },
+        // ],
         maxZoom: 11,
       });
       this.map.addListener("bounds_changed", function(event) {
@@ -298,10 +311,13 @@ export default {
                                 <img src="${
                                   item.medium_image
                                 }" style="height: 60px; display: block" />
+                                <div style="padding-top:5px;">
+                                
                                 ${item.sq_ft} sqft, ${item.bedrooms} Beds, ${
             item.bathrooms
           } Baths <br/>
                                 ${item.street}, ${item.community_name}
+                                </div>
                             </a>
                         `;
           let latLng = new google.maps.LatLng(item.lat, item.lng);

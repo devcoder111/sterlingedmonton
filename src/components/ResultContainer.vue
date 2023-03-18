@@ -90,12 +90,6 @@
       </a-row>
     </a-modal>
     <div class="filter-dropdown">
-      <transition :duration="550">
-        <div v-show="showFilter" class="filter-content">
-          <filter-container @onRefresh="onRefresh" @closeFilter="closeFilter" />
-        </div>
-      </transition>
-
       <div
         class="filter-drop-btn"
         @click="showFilter = !showFilter"
@@ -129,6 +123,11 @@
             /></svg
         ></span>
       </div>
+      <transition :duration="550">
+        <div v-show="showFilter" class="filter-content">
+          <filter-container @onRefresh="onRefresh" @closeFilter="closeFilter" />
+        </div>
+      </transition>
     </div>
 
     <div class="results">
@@ -152,9 +151,23 @@
           </div>
         </div>
         <div class="community-count-sort">
-          <span v-if="!loading" style="font-size: 18px"
-            >Total: {{ visibleItems.length }} homes</span
-          >
+          <div style="display:flex; align-items:center">
+            <span v-if="!loading" style="font-size: 18px"
+              >Total: {{ visibleItems.length }} homes</span
+            >
+            <div
+              v-if="this.$route.name !== 'home-designs'"
+              style="display: flex; justify-content: flex-start;  4px; padding: 4px; margin-left: 15px"
+              class="hide-mobile"
+            >
+              <span style="margin-right: 10px">Hide sold homes</span>
+              <a-switch
+                style="margin-left: auto"
+                @change="hideSoldReservedHomes"
+                v-model="hideSoldHome"
+              />
+            </div>
+          </div>
           <div
             :class="
               this.$route.name != 'home-designs'
@@ -189,6 +202,19 @@
                 >Move-in Date</a-select-option
               >
             </a-select>
+          </div>
+        </div>
+        <div class="hide-desktop" style="width:100%;">
+          <div
+            v-if="this.$route.name !== 'home-designs'"
+            style="display: flex; justify-content: flex-end;  4px; padding: 4px; margin-left: 15px"
+          >
+            <span>Hide sold homes</span>
+            <a-switch
+              style="margin-left: 5px"
+              @change="hideSoldReservedHomes"
+              v-model="hideSoldHome"
+            />
           </div>
         </div>
         <div
@@ -658,9 +684,7 @@ export default {
         community_ids: this.$store.state.filter.communities.join(","),
         features: this.$store.state.filter.features.join("-"),
         front_exposure: this.$store.state.filter.front_exposure.join("-"),
-        garage_parking_spaces: this.$store.state.filter.garage_parking_spaces.join(
-          "-"
-        ),
+        garage_parking_spaces: this.$store.state.filter.garage_parking_spaces,
         lot_size: this.$store.state.filter.lot_size,
         lot_shape: this.$store.state.filter.lot_shape,
         lot_location: this.$store.state.filter.lot_location,
@@ -745,9 +769,12 @@ export default {
           return o.offer_status == "Available";
         });
         console.log("hidesold-result", this.result);
-        this.$emit("onResult", this.result);
+        // this.$emit("onResult", this.result);
+        this.changeOrder();
       } else {
-        this.$emit("onResult", this.originResult);
+        // this.$emit("onResult", this.originResult);
+        this.result = this.originResult;
+        this.changeOrder();
       }
       // this.refresh();
     },

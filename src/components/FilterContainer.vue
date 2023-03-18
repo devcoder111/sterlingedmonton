@@ -284,7 +284,7 @@
             </a-row>
           </a-col>
         </a-row>
-        <a-row :gutter="16" style="padding: 10px 0;">
+        <a-row :gutter="16" style="padding: 5px 0;">
           <a-col :span="6">
             <a-select
               v-model="filter.garage_parking_spaces"
@@ -1274,7 +1274,7 @@
         </a-col>
       </a-row>
 
-      <a-row :gutter="16" style="padding: 10px 0;">
+      <a-row :gutter="16">
         <a-col :xs="{ span: 12 }" :lg="{ span: 6 }">
           <a-checkbox v-model="zero_line">Zero Lot Line</a-checkbox>
         </a-col>
@@ -1286,7 +1286,8 @@
         </a-col>
         <a-col :xs="{ span: 12 }" :lg="{ span: 6 }"> </a-col>
       </a-row>
-      <div>
+      <div class="filter-footer">
+        <a class="apply-btn" @click.prevent="applyFilter">Apply</a>
         <a class="clear-btn" @click.prevent="clearAll">Clear all filters</a>
       </div>
     </div>
@@ -1429,7 +1430,7 @@ export default {
         features: [],
         front_exposure: [],
         garage_parking_spaces: [],
-        lot_size: 0,
+        lot_size: "",
         lot_shape: "",
         lot_location: "",
         walkout_lot: "",
@@ -1481,7 +1482,7 @@ export default {
             price_range: sortBy(this.filter.price_range).join("-"),
             released_market: sortBy(this.filter.released_market).join("-"),
             communities: sortBy(this.filter.communities).join(","),
-            beds: this.filter.beds,
+            beds: sortBy(this.filter.beds).join(","),
             baths: this.filter.baths,
             possession_date:
               this.filter.possession_date != null
@@ -1505,7 +1506,6 @@ export default {
             is_guaranted: this.filter.is_guaranted,
           }),
         });
-        this.refresh(false);
       },
       deep: true,
     },
@@ -1539,6 +1539,9 @@ export default {
     });
   },
   methods: {
+    applyFilter() {
+      this.refresh(false);
+    },
     setActive(element) {
       console.log("element-", element);
       console.log("this filtersapplied-", this.filtersApplied);
@@ -1611,6 +1614,7 @@ export default {
           break;
       }
       let query = this.$route.query;
+      console.log("query---", query);
       let filters = {};
       if (window.hasOwnProperty("replaceQueryParams")) {
         filters = Object.assign(query, window.replaceQueryParams);
@@ -1686,7 +1690,7 @@ export default {
             query.garage_parking_spaces.trim().length > 0
               ? query.garage_parking_spaces.split(",")
               : [],
-          lot_size: query.lot_size > 0 ? query.lot_size : 0,
+          lot_size: query.lot_size > 0 ? query.lot_size : "",
           lot_shape: query.lot_shape != null ? query.lot_shape : "",
           lot_location: query.lot_location != null ? query.lot_location : "",
           walkout_lot: query.walkout_lot != null ? query.walkout_lot : "",
@@ -1706,6 +1710,7 @@ export default {
         this.square_to = query.home_size_range.split(",")[1];
       } else {
         filters = storejs.get(this.$route.name + "_filter");
+        console.log("no fileters", filters);
       }
       this.$store
         .dispatch("loadFilter", filters != null ? filters : this.filter)
@@ -1789,7 +1794,7 @@ export default {
         $this.filter.features = [];
         $this.filter.front_exposure = [];
         $this.filter.garage_parking_spaces = [];
-        $this.filter.lot_size = 0;
+        $this.filter.lot_size = "";
         $this.filter.lot_shape = "";
         $this.filter.lot_location = "";
         $this.filter.walkout_lot = "";
@@ -1852,7 +1857,7 @@ export default {
       this.filter.features = [];
       this.filter.front_exposure = [];
       this.filter.garage_parking_spaces = [];
-      this.filter.lot_size = 0;
+      this.filter.lot_size = "";
       this.filter.lot_shape = "";
       this.filter.lot_location = "";
       this.filter.walkout_lot = "";
@@ -1969,16 +1974,16 @@ export default {
 <style lang="scss" scoped>
 @import "../app.scss";
 .price-filter-wrapper {
-  padding: 10px 0px;
+  padding: 5px 0px;
   display: flex;
   align-items: center;
 }
 .filter-container-content {
-  margin-top: 50px;
+  margin-top: 10px;
 }
 
 .possession-date-home-type {
-  padding: 30px 0px;
+  padding: 5px 0px;
   display: flex;
 }
 .hometype-wrapper {
@@ -2019,10 +2024,22 @@ export default {
   }
 }
 .clear-btn {
-  float: right;
   text-decoration-line: underline;
   color: #616466;
-  padding: 20px 0;
+}
+.apply-btn {
+  text-decoration: none;
+  color: white;
+  background: #5dadff;
+  padding: 2px 20px;
+  border-radius: 20px;
+  margin-right: 10px;
+}
+.apply-btn:hover {
+  background: #3178c1;
+}
+.filter-footer {
+  float: right;
 }
 span.ant-input-suffix {
   background-color: #ffa;
@@ -2101,7 +2118,7 @@ input {
   }
 }
 .features-wrapper {
-  padding: 20px 0;
+  padding: 0px 0;
   display: flex;
 }
 @media all and (max-width: 700px) {

@@ -350,7 +350,10 @@
             Located in <b>{{ item.community_name }} Community</b>
           </div>
           <div>What locals say:</div>
-          <a-row :gutter="8" style="display:flex; flex-wrap: wrap">
+          <div v-if="item.locals_say.pet_friendly == ''" class="truncateStr">
+            {{ item.intro }}
+          </div>
+          <a-row v-else :gutter="8" style="display:flex; flex-wrap: wrap">
             <a-col :span="12" class="locals-say-item-wrapper">
               <div class="locals-say-item">
                 <p class="item-desc">
@@ -366,21 +369,7 @@
                 </p>
               </div>
             </a-col>
-            <!-- <a-col :span="12" class="locals-say-item-wrapper">
-              <div class="locals-say-item">
-                <p class="item-desc">
-                  <img
-                    src="https://www.sterlingedmonton.com/wp-content/uploads/car.png"
-                  />
-                  Car is needed
-                </p>
-                <p class="item-percent">
-                  <img
-                    src="https://www.sterlingedmonton.com/wp-content/uploads/thumb3.png"
-                  /><span> %{{ item.locals_say.car_needed }}</span>
-                </p>
-              </div>
-            </a-col> -->
+
             <a-col :span="12" class="locals-say-item-wrapper">
               <div class="locals-say-item">
                 <p class="item-desc">
@@ -392,7 +381,7 @@
                 <p class="item-percent">
                   <img
                     src="https://www.sterlingedmonton.com/wp-content/uploads/thumb3.png"
-                  /><span> %{{ item.locals_say.walk_alone }}</span>
+                  /><span>{{ item.locals_say.walk_alone }}%</span>
                 </p>
               </div>
             </a-col>
@@ -411,21 +400,7 @@
                 </p>
               </div>
             </a-col>
-            <!-- <a-col :span="12" class="locals-say-item-wrapper">
-              <div class="locals-say-item">
-                <p class="item-desc">
-                  <img
-                    src="https://www.sterlingedmonton.com/wp-content/uploads/yard.png"
-                  />
-                  There are sidewalks
-                </p>
-                <p class="item-percent">
-                  <img
-                    src="https://www.sterlingedmonton.com/wp-content/uploads/thumb3.png"
-                  /><span> %{{ item.locals_say.sidewalks }}</span>
-                </p>
-              </div>
-            </a-col> -->
+
             <a-col :span="12" class="locals-say-item-wrapper">
               <div class="locals-say-item">
                 <p class="item-desc">
@@ -441,81 +416,7 @@
                 </p>
               </div>
             </a-col>
-            <!-- <a-col :span="12" class="locals-say-item-wrapper">
-              <div class="locals-say-item">
-                <p class="item-desc">
-                  <img
-                    src="https://www.sterlingedmonton.com/wp-content/uploads/walking.png"
-                  />
-                  It's walkable to transit
-                </p>
-                <p class="item-percent">
-                  <img
-                    src="https://www.sterlingedmonton.com/wp-content/uploads/thumb3.png"
-                  /><span> %{{ item.locals_say.walk_transit }}</span>
-                </p>
-              </div>
-            </a-col>
-            <a-col :span="12" class="locals-say-item-wrapper">
-              <div class="locals-say-item">
-                <p class="item-desc">
-                  <img
-                    src="https://www.sterlingedmonton.com/wp-content/uploads/sunbed.png"
-                  />
-                  There's holiday spirit
-                </p>
-                <p class="item-percent">
-                  <img
-                    src="https://www.sterlingedmonton.com/wp-content/uploads/thumb3.png"
-                  /><span> %{{ item.locals_say.holiday_spirit }}</span>
-                </p>
-              </div>
-            </a-col>
-            <a-col :span="12" class="locals-say-item-wrapper">
-              <div class="locals-say-item">
-                <p class="item-desc">
-                  <img
-                    src="https://www.sterlingedmonton.com/wp-content/uploads/shopping-cart.png"
-                  />
-                  It's walkable to grocery stores
-                </p>
-                <p class="item-percent">
-                  <img
-                    src="https://www.sterlingedmonton.com/wp-content/uploads/thumb3.png"
-                  /><span> %{{ item.locals_say.walk_grocery }}</span>
-                </p>
-              </div>
-            </a-col>
-            <a-col :span="12" class="locals-say-item-wrapper">
-              <div class="locals-say-item">
-                <p class="item-desc">
-                  <img
-                    src="https://www.sterlingedmonton.com/wp-content/uploads/hourglass.png"
-                  />
-                  They plan to stay for at least 5 years
-                </p>
-                <p class="item-percent">
-                  <img
-                    src="https://www.sterlingedmonton.com/wp-content/uploads/thumb3.png"
-                  /><span> %{{ item.locals_say.stay_five }}</span>
-                </p>
-              </div>
-            </a-col>
-            <a-col :span="12" class="locals-say-item-wrapper">
-              <div class="locals-say-item">
-                <p class="item-desc">
-                  <img
-                    src="https://www.sterlingedmonton.com/wp-content/uploads/park.png"
-                  />
-                  Parking is easy
-                </p>
-                <p class="item-percent">
-                  <img
-                    src="https://www.sterlingedmonton.com/wp-content/uploads/thumb3.png"
-                  /><span> %{{ item.locals_say.parking_easy }}</span>
-                </p>
-              </div>
-            </a-col> -->
+
             <a-col :span="12" class="locals-say-item-wrapper">
               <div class="locals-say-item">
                 <p class="item-desc">
@@ -531,36 +432,7 @@
                 </p>
               </div>
             </a-col>
-            <!-- <a-col :span="12" class="locals-say-item-wrapper">
-              <div class="locals-say-item">
-                <p class="item-desc">
-                  <img
-                    src="https://www.sterlingedmonton.com/wp-content/uploads/conversation.png"
-                  />
-                  Know their neighbours by first name
-                </p>
-                <p class="item-percent">
-                  <img
-                    src="https://www.sterlingedmonton.com/wp-content/uploads/thumb3.png"
-                  /><span> %{{ item.locals_say.know_first_name }}</span>
-                </p>
-              </div>
-            </a-col>
-            <a-col :span="12" class="locals-say-item-wrapper">
-              <div class="locals-say-item">
-                <p class="item-desc">
-                  <img
-                    src="https://www.sterlingedmonton.com/wp-content/uploads/barbacue.png"
-                  />
-                  There are community events
-                </p>
-                <p class="item-percent">
-                  <img
-                    src="https://www.sterlingedmonton.com/wp-content/uploads/thumb3.png"
-                  /><span> %{{ item.locals_say.community_events }}</span>
-                </p>
-              </div>
-            </a-col> -->
+
             <a-col :span="12" class="locals-say-item-wrapper">
               <div class="locals-say-item">
                 <p class="item-desc">

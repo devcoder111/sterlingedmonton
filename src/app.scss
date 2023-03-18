@@ -332,9 +332,14 @@ input.ant-input{
   }
 
   .filter-dropdown{
-    position: absolute;
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+    border: 1px solid lightgray;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+    background: white;
     z-index:10;
-    width: 98%;
   }
 
   .filter-drop-btn{
@@ -351,7 +356,8 @@ input.ant-input{
   }
   .filter-content{
     background: white;
-    height: 570px;
+    height: 580px;
+    margin-bottom: 20px;;
   }
   .v-enter-active,
   .v-leave-active {
@@ -788,6 +794,7 @@ input.ant-input{
     border-radius: 20px;
     height: auto;
     border: none;
+    margin-top: 8px;
 }
 .open-hours{
   white-space: nowrap;
@@ -874,7 +881,7 @@ input.ant-input{
 
       .results {
         .homes {
-          grid-template-columns: repeat(auto-fill, 23.5%);
+          // grid-template-columns: repeat(auto-fill, 23.5%);
           grid-gap: 20px 2%;
         }
       }
@@ -899,7 +906,7 @@ input.ant-input{
     .result-container {
       .results {
         .homes {
-          grid-template-columns: repeat(auto-fill, 32%);
+          // grid-template-columns: repeat(auto-fill, 32%);
           grid-gap: 20px 2%;
         }
       }
@@ -909,7 +916,7 @@ input.ant-input{
 
 @media all and (max-width: 800px) {
   .favorite-homes {
-    grid-template-columns: repeat(auto-fill, 49%);
+    // grid-template-columns: repeat(auto-fill, 49%);
     grid-gap: 20px 2%;
   }
 }
@@ -929,7 +936,7 @@ input.ant-input{
 
       .results {
         .homes {
-          grid-template-columns: repeat(auto-fill, 49%);
+          // grid-template-columns: repeat(auto-fill, 49%);
           grid-gap: 20px 2%;
         }
       }
@@ -1015,6 +1022,12 @@ input.ant-input{
 .galleryModal{
   height:500px;
 }
+.truncateStr{
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+}
 
 @media all and (max-width: 500px) {
   .saved-filters .ant-card {
@@ -1025,7 +1038,7 @@ input.ant-input{
     width: 100%;
     display: flex;
     align-items: center;
-    justify-content: center;
+    
     font-size: 16px;
   }
   .hide-desktop{
