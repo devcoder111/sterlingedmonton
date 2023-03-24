@@ -1431,9 +1431,9 @@ export default {
         front_exposure: [],
         garage_parking_spaces: [],
         lot_size: "",
-        lot_shape: "",
-        lot_location: "",
-        walkout_lot: "",
+        lot_shape: [],
+        lot_location: [],
+        walkout_lot: [],
         colourboard: "",
         is_price_reduced: false,
         is_promotion: false,
@@ -1497,15 +1497,16 @@ export default {
               this.filter.garage_parking_spaces
             ).join(","),
             lot_size: this.filter.lot_size,
-            lot_shape: this.filter.lot_shape,
-            lot_location: this.filter.lot_location,
-            walkout_lot: this.filter.walkout_lot,
+            lot_shape: sortBy(this.filter.lot_shape).join(","),
+            lot_location: sortBy(this.filter.lot_location).join(","),
+            walkout_lot: sortBy(this.filter.walkout_lot).join(","),
             colourboard: this.filter.colourboard,
             is_price_reduced: this.filter.is_price_reduced,
             is_promotion: this.filter.is_promotion,
             is_guaranted: this.filter.is_guaranted,
           }),
         });
+        console.log("filter query--", this.$router);
       },
       deep: true,
     },
@@ -1541,6 +1542,7 @@ export default {
   methods: {
     applyFilter() {
       this.refresh(false);
+      this.closeFilters();
     },
     setActive(element) {
       console.log("element-", element);
@@ -1691,9 +1693,18 @@ export default {
               ? query.garage_parking_spaces.split(",")
               : [],
           lot_size: query.lot_size > 0 ? query.lot_size : "",
-          lot_shape: query.lot_shape != null ? query.lot_shape : "",
-          lot_location: query.lot_location != null ? query.lot_location : "",
-          walkout_lot: query.walkout_lot != null ? query.walkout_lot : "",
+          lot_shape:
+            query.lot_shape != null && query.lot_shape.trim().length > 0
+              ? query.lot_shape.split(",")
+              : [],
+          lot_location:
+            query.lot_location != null && query.lot_location.trim().length > 0
+              ? query.lot_location.split(",")
+              : [],
+          walkout_lot:
+            query.walkout_lot != null && query.walkout_lot.trim().length > 0
+              ? query.walkout_lot.split(",")
+              : [],
           colourboard: query.colourboard != null ? query.colourboard : "",
           is_price_reduced:
             query.is_price_reduced != null
@@ -1795,9 +1806,9 @@ export default {
         $this.filter.front_exposure = [];
         $this.filter.garage_parking_spaces = [];
         $this.filter.lot_size = "";
-        $this.filter.lot_shape = "";
-        $this.filter.lot_location = "";
-        $this.filter.walkout_lot = "";
+        $this.filter.lot_shape = [];
+        $this.filter.lot_location = [];
+        $this.filter.walkout_lot = [];
         $this.filter.colourboard = "";
         $this.filter.is_promotion = false;
         $this.filter.is_guaranted = 0;
@@ -1858,9 +1869,9 @@ export default {
       this.filter.front_exposure = [];
       this.filter.garage_parking_spaces = [];
       this.filter.lot_size = "";
-      this.filter.lot_shape = "";
-      this.filter.lot_location = "";
-      this.filter.walkout_lot = "";
+      this.filter.lot_shape = [];
+      this.filter.lot_location = [];
+      this.filter.walkout_lot = [];
       this.filter.colourboard = "";
       this.filter.is_promotion = false;
       this.filter.is_guaranted = 0;
@@ -1979,7 +1990,7 @@ export default {
   align-items: center;
 }
 .filter-container-content {
-  margin-top: 10px;
+  margin-top: 15px;
 }
 
 .possession-date-home-type {
@@ -2127,6 +2138,9 @@ input {
     .show-promotion-switch {
       padding: 10px 0;
     }
+  }
+  .filter-container-content {
+    margin-top: 40px;
   }
   .possession-date-home-type {
     display: block;

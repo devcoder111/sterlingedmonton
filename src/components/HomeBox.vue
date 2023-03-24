@@ -51,12 +51,6 @@
           <polyline points="9 6 15 12 9 18"></polyline>
         </svg>
       </a-button>
-      <!-- <div
-        class="bfriday-ribbon  top-left sticky red shadow"
-        v-if="item.promotion_checkbox === true"
-      >
-        BLACK FRIDAY SAVINGS!
-      </div> -->
 
       <div class="sale-ribbon" v-if="item.promotion_checkbox === true">
         <img src="../assets/sale_badge.png" />
@@ -354,7 +348,11 @@
             {{ item.intro }}
           </div>
           <a-row v-else :gutter="8" style="display:flex; flex-wrap: wrap">
-            <a-col :span="12" class="locals-say-item-wrapper">
+            <a-col
+              :xs="{ span: 24 }"
+              :lg="{ span: 12 }"
+              class="locals-say-item-wrapper"
+            >
               <div class="locals-say-item">
                 <p class="item-desc">
                   <img

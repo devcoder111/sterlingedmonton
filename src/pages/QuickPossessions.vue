@@ -196,7 +196,7 @@ export default {
       this.mode = this.mode === "list" ? "map" : "list";
       $(".map-container").toggle();
       $(".result-container").toggle();
-      this.$refs.resultContainer.refresh();
+      if (this.mode == "map") this.$refs.resultContainer.refresh();
     },
   },
 };
