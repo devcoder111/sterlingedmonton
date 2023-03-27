@@ -139,7 +139,7 @@
         >
           <a-input
             placeholder="Search by community, model, job number"
-            style="width: 100%; border: none;"
+            style="width: 75%; border: none;"
             v-if="!loading"
             v-model="job_file_filter"
             class="filer-search-input"

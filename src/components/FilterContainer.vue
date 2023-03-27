@@ -2141,6 +2141,7 @@ input {
   }
   .filter-container-content {
     margin-top: 40px;
+    margin-bottom: 80px;
   }
   .possession-date-home-type {
     display: block;
@@ -2162,6 +2163,12 @@ input {
   }
   .other-have-rooms-wrapper {
     border: none;
+  }
+  .lotdirection-wrapper {
+    .ant-checkbox-group {
+      display: flex;
+      flex-wrap: wrap;
+    }
   }
 }
 </style>

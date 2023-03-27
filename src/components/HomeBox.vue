@@ -239,7 +239,7 @@
           <span>See Full Details</span>
           <img src="../assets/external-link.png" alt="" width="13px" />
         </div>
-        <div @click="showPreview = !showPreview">
+        <div >
           <span v-if="!showPreview">Preview</span>
           <span v-if="showPreview">Close</span>
           <a-icon
@@ -368,7 +368,8 @@
               </div>
             </a-col>
 
-            <a-col :span="12" class="locals-say-item-wrapper">
+            <a-col :xs="{ span: 24 }"
+              :lg="{ span: 12 }" class="locals-say-item-wrapper">
               <div class="locals-say-item">
                 <p class="item-desc">
                   <img
@@ -383,7 +384,8 @@
                 </p>
               </div>
             </a-col>
-            <a-col :span="12" class="locals-say-item-wrapper">
+            <a-col :xs="{ span: 24 }"
+              :lg="{ span: 12 }" class="locals-say-item-wrapper">
               <div class="locals-say-item">
                 <p class="item-desc">
                   <img
@@ -399,7 +401,8 @@
               </div>
             </a-col>
 
-            <a-col :span="12" class="locals-say-item-wrapper">
+            <a-col :xs="{ span: 24 }"
+              :lg="{ span: 12 }" class="locals-say-item-wrapper">
               <div class="locals-say-item">
                 <p class="item-desc">
                   <img
@@ -415,7 +418,8 @@
               </div>
             </a-col>
 
-            <a-col :span="12" class="locals-say-item-wrapper">
+            <a-col :xs="{ span: 24 }"
+              :lg="{ span: 12 }" class="locals-say-item-wrapper">
               <div class="locals-say-item">
                 <p class="item-desc">
                   <img
@@ -431,7 +435,8 @@
               </div>
             </a-col>
 
-            <a-col :span="12" class="locals-say-item-wrapper">
+            <a-col :xs="{ span: 24 }"
+              :lg="{ span: 12 }" class="locals-say-item-wrapper">
               <div class="locals-say-item">
                 <p class="item-desc">
                   <img

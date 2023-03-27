@@ -427,7 +427,7 @@
   }
 
   .main-container {
-    overflow: unset !important;
+    /* overflow: unset !important; */
     height: unset !important;
   }
   .main-container .result-container {
