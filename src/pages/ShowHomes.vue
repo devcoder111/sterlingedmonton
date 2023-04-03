@@ -1,6 +1,6 @@
 <template>
   <div class="page">
-    <div class="mobile-buttons">
+    <div hidden class="mobile-buttons">
       <a-button
         style="width: 48%;"
         class="filtersBtn"
@@ -24,13 +24,17 @@
       >
     </div>
     <div class="main-container">
-      <filter-container @onRefresh="onRefresh" />
-      <map-container ref="mapContainer" @onVisibleItems="onVisibleItems" />
       <result-container
         ref="resultContainer"
         @onLoading="onLoading"
         @onLoaded="onLoaded"
         @onResult="onResult"
+        @onRefresh="onRefresh"
+      />
+      <map-container
+        ref="mapContainer"
+        @onVisibleItems="onVisibleItems"
+        @onRefresh="onRefresh"
       />
     </div>
   </div>

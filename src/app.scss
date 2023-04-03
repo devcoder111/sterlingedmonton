@@ -69,8 +69,11 @@ input.ant-input{
     }
   }
 }
-.see-details-btn:hover{
-  color:#5DADFF;
+.see-details-btn{
+  color: white;
+  padding: 3px 20px;
+  border-radius: 13px;
+  margin-left: auto;
 }
 .filter-container {
   background: #fff;
@@ -467,7 +470,7 @@ input.ant-input{
   // drop-shadow(0px 12px 12px rgba(0, 0, 0, 0.05)) 
   // drop-shadow(0px 5px 10px rgba(0, 0, 0, 0.06)) 
   // drop-shadow(0px 0px 0px rgba(0, 0, 0, 0.06));
-  
+  box-shadow: 1px 1px 2px #d7d5d5;
   overflow: hidden;
 
   .item-contents{
@@ -649,7 +652,7 @@ input.ant-input{
     display: flex;
     padding: 5px 5px;
     justify-content: space-between;
-    align-items: baseline;
+    align-items: center;
     min-height: 50px;
     background: white;
 
@@ -702,7 +705,7 @@ input.ant-input{
   }
   .full-details{
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     padding: 5px 0;
   }
@@ -1075,6 +1078,9 @@ input.ant-input{
           flex-wrap: wrap;
         }
       }
+    }
+    .filter-dropdown{
+      border: none;
     }
   }
 

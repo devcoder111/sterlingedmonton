@@ -65,6 +65,7 @@
     </div>
     <div class="item-contents" @click="openPreview(item)">
       <div
+        v-if="item.open_hour != ''"
         :class="
           item.possession_date_banner == 'Move-In Ready'
             ? 'home-status hide-mobile bg-blue'
@@ -97,11 +98,7 @@
           </div>
         </div>
       </div>
-      <div
-        class="content"
-        @click.self="openHome(item.link)"
-        @contextmenu.capture.prevent="openHome(item.link)"
-      >
+      <div class="content">
         <h3 v-html="item.title"></h3>
         <div class="address" v-if="address_visible">
           {{ item.street }}, {{ item.community_name }}
@@ -146,6 +143,19 @@
             </span>
           </div>
           <div class="home-price">${{ formatMoney(item.price) }}</div>
+        </div>
+        <div
+          @click.stop="goPossessionPage(item.link)"
+          :class="
+            item.possession_date_banner == 'Move-In Ready' ||
+            item.open_hour == ''
+              ? 'see-details-btn bg-blue'
+              : item.possession_date_banner == 'Quick Possession'
+              ? 'see-details-btn bg-sky'
+              : 'see-details-btn bg-light-grey'
+          "
+        >
+          <span>VIEW DETAILS</span>
         </div>
       </div>
       <div class="second-features">
@@ -235,11 +245,7 @@
         </div>
       </div>
       <div class="full-details">
-        <div @click.stop="goPossessionPage(item.link)" class="see-details-btn">
-          <span>See Full Details</span>
-          <img src="../assets/external-link.png" alt="" width="13px" />
-        </div>
-        <div >
+        <div>
           <span v-if="!showPreview">Preview</span>
           <span v-if="showPreview">Close</span>
           <a-icon
@@ -368,8 +374,11 @@
               </div>
             </a-col>
 
-            <a-col :xs="{ span: 24 }"
-              :lg="{ span: 12 }" class="locals-say-item-wrapper">
+            <a-col
+              :xs="{ span: 24 }"
+              :lg="{ span: 12 }"
+              class="locals-say-item-wrapper"
+            >
               <div class="locals-say-item">
                 <p class="item-desc">
                   <img
@@ -384,8 +393,11 @@
                 </p>
               </div>
             </a-col>
-            <a-col :xs="{ span: 24 }"
-              :lg="{ span: 12 }" class="locals-say-item-wrapper">
+            <a-col
+              :xs="{ span: 24 }"
+              :lg="{ span: 12 }"
+              class="locals-say-item-wrapper"
+            >
               <div class="locals-say-item">
                 <p class="item-desc">
                   <img
@@ -401,8 +413,11 @@
               </div>
             </a-col>
 
-            <a-col :xs="{ span: 24 }"
-              :lg="{ span: 12 }" class="locals-say-item-wrapper">
+            <a-col
+              :xs="{ span: 24 }"
+              :lg="{ span: 12 }"
+              class="locals-say-item-wrapper"
+            >
               <div class="locals-say-item">
                 <p class="item-desc">
                   <img
@@ -418,8 +433,11 @@
               </div>
             </a-col>
 
-            <a-col :xs="{ span: 24 }"
-              :lg="{ span: 12 }" class="locals-say-item-wrapper">
+            <a-col
+              :xs="{ span: 24 }"
+              :lg="{ span: 12 }"
+              class="locals-say-item-wrapper"
+            >
               <div class="locals-say-item">
                 <p class="item-desc">
                   <img
@@ -435,8 +453,11 @@
               </div>
             </a-col>
 
-            <a-col :xs="{ span: 24 }"
-              :lg="{ span: 12 }" class="locals-say-item-wrapper">
+            <a-col
+              :xs="{ span: 24 }"
+              :lg="{ span: 12 }"
+              class="locals-say-item-wrapper"
+            >
               <div class="locals-say-item">
                 <p class="item-desc">
                   <img
@@ -562,7 +583,8 @@ export default {
       bus.$emit("openMarker", item);
     },
     goPossessionPage(link) {
-      window.location.href = link;
+      document.location.href = link;
+      bus.$emit("goPossessionPage");
     },
     openInNewTab() {
       window.open(this.item.link, "_blank");

@@ -1326,6 +1326,7 @@ export default {
   },
   data() {
     return {
+      goPossessionPage: false,
       search: "",
       communityMaxTagCount: 4,
       possessiondateMaxTagCount: 1,
@@ -1477,35 +1478,42 @@ export default {
     filter: {
       handler(val, oldVal) {
         console.log("filter changed--", val);
-        this.$router.push({
-          query: Object.assign({}, this.$route.query, {
-            price_range: sortBy(this.filter.price_range).join("-"),
-            released_market: sortBy(this.filter.released_market).join("-"),
-            communities: sortBy(this.filter.communities).join(","),
-            beds: sortBy(this.filter.beds).join(","),
-            baths: this.filter.baths,
-            possession_date:
-              this.filter.possession_date != null
-                ? this.filter.possession_date.format().substring(0, 10)
-                : null,
-            home_size_range: this.filter.home_size_range.join("-"),
-            home_types: sortBy(this.filter.home_types).join(","),
-            model_ids: sortBy(this.filter.model_ids).join(","),
-            features: sortBy(this.filter.features).join(","),
-            front_exposure: sortBy(this.filter.front_exposure).join(","),
-            garage_parking_spaces: sortBy(
-              this.filter.garage_parking_spaces
-            ).join(","),
-            lot_size: this.filter.lot_size,
-            lot_shape: sortBy(this.filter.lot_shape).join(","),
-            lot_location: sortBy(this.filter.lot_location).join(","),
-            walkout_lot: sortBy(this.filter.walkout_lot).join(","),
-            colourboard: this.filter.colourboard,
-            is_price_reduced: this.filter.is_price_reduced,
-            is_promotion: this.filter.is_promotion,
-            is_guaranted: this.filter.is_guaranted,
-          }),
-        });
+        //this.goPossessionPage == false this is for keeping the params when redirect to single page
+        if (this.goPossessionPage == false) {
+          this.$router.push({
+            query: Object.assign({}, this.$route.query, {
+              price_range: sortBy(this.filter.price_range).join("-"),
+              released_market: sortBy(this.filter.released_market).join("-"),
+              communities: sortBy(this.filter.communities).join(","),
+              beds: sortBy(this.filter.beds).join(","),
+              baths: this.filter.baths,
+              possession_date:
+                this.filter.possession_date != null
+                  ? this.filter.possession_date.format().substring(0, 10)
+                  : null,
+              home_size_range: this.filter.home_size_range.join("-"),
+              home_types: sortBy(this.filter.home_types).join(","),
+              model_ids: sortBy(this.filter.model_ids).join(","),
+              features: sortBy(this.filter.features).join(","),
+              front_exposure: sortBy(this.filter.front_exposure).join(","),
+              garage_parking_spaces: sortBy(
+                this.filter.garage_parking_spaces
+              ).join(","),
+              lot_size: this.filter.lot_size,
+              lot_shape: sortBy(this.filter.lot_shape).join(","),
+              lot_location: sortBy(this.filter.lot_location).join(","),
+              walkout_lot: sortBy(this.filter.walkout_lot).join(","),
+              colourboard: this.filter.colourboard,
+              is_price_reduced: this.filter.is_price_reduced,
+              is_promotion: this.filter.is_promotion,
+              is_guaranted: this.filter.is_guaranted,
+            }),
+          });
+          console.log(
+            "current route--",
+            this.$router.currentRoute.query.communities
+          );
+        }
         console.log("filter query--", this.$router);
       },
       deep: true,
@@ -1537,6 +1545,10 @@ export default {
       console.log("selectCommunity", item);
       this.filter.communities = [];
       this.filter.communities.push(String(item.id));
+    });
+    bus.$on("goPossessionPage", () => {
+      console.log("goPossessionPage--");
+      this.goPossessionPage = true;
     });
   },
   methods: {
