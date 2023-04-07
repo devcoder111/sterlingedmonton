@@ -1,28 +1,11 @@
 <template>
   <div class="page">
-    <div hidden class="mobile-buttons">
-      <a-button
-        style="width: 48%;"
-        class="filtersBtn"
-        @click="toggleFilters"
-        :disabled="loading"
-        >Filters</a-button
-      >
-      <a-button
-        style="width: 48%;"
-        @click="toggleMap"
-        v-if="mode === 'list'"
-        :disabled="loading"
-        >Map View</a-button
-      >
-      <a-button
-        style="width: 48%;"
-        @click="toggleMap"
-        v-if="mode === 'map'"
-        :disabled="loading"
-        >List View</a-button
-      >
+    <div class="banner_wrapper">
+      <img src="../assets/banner.png" alt="Banner" class="banner_img" />
+      <h2 class="banner_title">Quick Possessions</h2>
+      <quick-filter @onRefresh="onRefresh" />
     </div>
+
     <div class="main-container">
       <!-- <filter-container @onRefresh="onRefresh" /> -->
       <result-container
@@ -108,14 +91,20 @@ import keyBy from "lodash/keyBy";
 import map from "lodash/map";
 import FilterContainer from "../components/FilterContainer.vue";
 import ResultContainer from "../components/ResultContainer.vue";
+import QuickFilter from "../components/QuickFilter.vue";
 import MapContainer from "../components/MapContainer.vue";
+import Icon from "ant-design-vue/lib/icon";
+import { bus } from "../app.js";
+import intersection from "lodash/intersection";
 
 export default {
   components: {
     "filter-container": FilterContainer,
     "result-container": ResultContainer,
     "map-container": MapContainer,
+    "quick-filter": QuickFilter,
     "a-button": Button,
+    "a-icon": Icon,
   },
   data() {
     return {
@@ -128,6 +117,7 @@ export default {
   },
   mounted() {
     let $this = this;
+    console.log("quick possession mounted");
     document.title =
       "NEW Quick Posession Homes For Sale Edmonton | Find New Homes In Edmonton | Sterling Homes";
     this.resizeEventFunction = function() {
@@ -150,9 +140,10 @@ export default {
       }
       let doc = document.documentElement;
       let mainContainer = document.getElementsByClassName("main-container")[0];
+      console.log("fff", doc.offsetHeight, mainContainer.offsetTop);
       $(".main-container").css(
         "height",
-        doc.offsetHeight - mainContainer.offsetTop - 200 + "px"
+        doc.offsetHeight - mainContainer.offsetTop - 150 + "px"
       );
     },
     onLoading() {

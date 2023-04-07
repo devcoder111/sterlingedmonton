@@ -7,6 +7,58 @@
   }
 }
 
+.banner_wrapper{
+  position: relative;
+  z-index: 1001;
+  .banner_img{
+    height: 100px;
+    width: 100%;
+    object-fit: cover;
+  }
+  .banner_title{
+    color: white;
+    position: absolute;
+    top: 50%;
+    left: 30px;
+    transform: translateY(-51%);
+    font-size: 30px;
+  }
+  .quick_filters_wrapper{
+    display: inline-block;
+    position: absolute;
+    background: white;
+    padding: 10px;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-51%);
+    border-radius: 6px;
+    .quickfiltersBtn{
+      // font-weight: 700;
+      color: black;
+    }
+    .quick_filter_btn_wrapp{
+      position: relative;
+      display: inline-block;
+    }
+    .filter_btn_dropmenu{
+      display: none;
+      position: absolute;
+      min-width: 275px;
+      max-height: 400px;
+      overflow: auto;
+      top: 100%;
+      right: auto;
+      left: 0px;
+      background: white;
+      border-radius: 5px;
+      box-shadow: 1px 2px 2px grey;
+      padding: 15px;
+    }
+    .filterBtnActive{
+      display: inline-block;
+    }
+  }
+}
 .ant-input{
   border-radius: 20px !important;
 }
@@ -343,7 +395,7 @@ input.ant-input{
     border-bottom-left-radius: 30px;
     border-bottom-right-radius: 30px;
     background: white;
-    z-index:10;
+    z-index:200;
   }
 
   .filter-drop-btn{
@@ -360,7 +412,7 @@ input.ant-input{
   }
   .filter-content{
     background: white;
-    height: 580px;
+    height: 588px;
     margin-bottom: 20px;;
   }
   .v-enter-active,
@@ -384,9 +436,13 @@ input.ant-input{
     position: relative;
 
     // box-shadow: -2px 2px 5px 0 rgba(0,0,0,.4);
-    
+    .container-title{
+      font-size: 1.2rem;
+      margin-top: 10px;
+    }
+
     .results {
-      margin-top: 57px;
+      margin-top: 25px;
       z-index: 1;
       position: initial;
 

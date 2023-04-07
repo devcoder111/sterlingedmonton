@@ -1,5 +1,10 @@
 <template>
   <div class="page">
+    <div class="banner_wrapper">
+      <img src="../assets/banner.png" alt="Banner" class="banner_img" />
+      <h2 class="banner_title">Show Homes & Self-Showing Homes</h2>
+      <quick-filter @onRefresh="onRefresh" />
+    </div>
     <div hidden class="mobile-buttons">
       <a-button
         style="width: 48%;"
@@ -48,12 +53,14 @@ import keyBy from "lodash/keyBy";
 import map from "lodash/map";
 import Button from "ant-design-vue/lib/button";
 import "ant-design-vue/lib/button/style/css";
+import QuickFilter from "../components/QuickFilter.vue";
 
 export default {
   components: {
     "filter-container": FilterContainer,
     "result-container": ResultContainer,
     "map-container": MapContainer,
+    "quick-filter": QuickFilter,
     "a-button": Button,
   },
   data() {
@@ -86,7 +93,7 @@ export default {
       let mainContainer = document.getElementsByClassName("main-container")[0];
       $(".main-container").css(
         "height",
-        doc.offsetHeight - mainContainer.offsetTop - 200 + "px"
+        doc.offsetHeight - mainContainer.offsetTop - 150 + "px"
       );
     },
     onLoading() {

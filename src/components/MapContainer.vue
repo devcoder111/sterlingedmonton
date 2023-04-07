@@ -1,6 +1,6 @@
 <template>
   <div class="map-container">
-    <div class="map-colors-info">
+    <div class="map-colors-info" v-if="this.$route.name == 'quick-possessions'">
       <div class="map-color map-color-available"><span></span> Available</div>
       <div class="map-color map-color-conditional"><span></span> Pending</div>
       <div class="map-color map-color-sold"><span></span> Sold</div>
@@ -31,7 +31,10 @@
         >Recreation Centres</a
       >
     </div> -->
-    <div class="quick-filters-button">
+    <div
+      class="quick-filters-button"
+      v-if="this.$route.name == 'quick-possessions'"
+    >
       <a-button
         :type="isFourPlusBeds ? 'primary' : 'default'"
         @click="clickFourPlusBeds"

@@ -89,7 +89,7 @@
         </a-col>
       </a-row>
     </a-modal>
-    <div class="filter-dropdown">
+    <div class="filter-dropdown" v-if="this.$route.name !== 'home-designs'">
       <div
         class="filter-drop-btn"
         @click="showFilter = !showFilter"
@@ -156,7 +156,7 @@
               >Total: {{ visibleItems.length }} homes</span
             >
             <div
-              v-if="this.$route.name !== 'home-designs'"
+              v-if="this.$route.name == 'quick-possessions'"
               style="display: flex; justify-content: flex-start;  4px; padding: 4px; margin-left: 15px"
               class="hide-mobile"
             >
@@ -439,6 +439,17 @@ export default {
     },
   },
   computed: {
+    container_title() {
+      console.log("route-", this.$route.name);
+      switch (this.$route.name) {
+        case "quick-possessions":
+          return "Quick Possessions";
+        case "home-designs":
+          return "Models";
+        case "show-homes":
+          return "Show Homes & Self-Showing Homes";
+      }
+    },
     is_job_file_filter_visible() {
       return (
         this.$route.name === "quick-possessions" ||

@@ -4,10 +4,15 @@
       <a href="javascript:;" @click="closeFilters">Close</a>
     </div>
     <div class="filter-container-content">
+      <div class="filter-dropdown">
+        <div class="filter-drop-btn" v-if="$mq != 'mobile'">
+          <span style="padding-right: 5px;">FILTERS</span>
+        </div>
+      </div>
       <a-select
         v-model="filter.communities"
         placeholder="Communities"
-        style="width: 100%;"
+        style="width: 100%; padding-top: 20px;"
         mode="multiple"
         @change="onChange"
         :max-tag-count="communityMaxTagCount"
@@ -35,35 +40,56 @@
         <div style="padding-right: 20px;">
           <label>Price range:</label>
           <a-select
-            v-model="filter.price_range"
-            placeholder="Price Range"
-            style="width: 230px;"
-            :max-tag-count="priceMaxTagCount"
-            mode="multiple"
+            v-model="price_from"
+            style="width: 100px;"
+            placeholder="From"
           >
-            <a-select-option value="300000,350000">
-              $300K - $350K
+            <a-select-option value="300000">
+              $300k
             </a-select-option>
-            <a-select-option value="350000,400000">
-              $350K - $400K
+            <a-select-option value="350000">
+              $350k
             </a-select-option>
-            <a-select-option value="400000,450000">
-              $400K - $450K
+            <a-select-option value="400000">
+              $400k
             </a-select-option>
-            <a-select-option value="450000,500000">
-              $450K - $500K
+            <a-select-option value="450000">
+              $450k
             </a-select-option>
-            <a-select-option value="500000,550000">
-              $500K - $550K
+            <a-select-option value="500000">
+              $500k
             </a-select-option>
-            <a-select-option value="550000,600000">
-              $550K - $600K
+            <a-select-option value="550000">
+              $550k
             </a-select-option>
-            <a-select-option value="600000,650000">
-              $600K - $650K
+            <a-select-option value="600000">
+              $600k
             </a-select-option>
-            <a-select-option value="650000,5000000">
-              $650K+
+            <a-select-option value="650000">
+              $650k
+            </a-select-option>
+          </a-select>
+          <a-select v-model="price_to" style="width: 100px;" placeholder="To">
+            <a-select-option value="350000" v-if="price_from < 350000">
+              $350k
+            </a-select-option>
+            <a-select-option value="400000" v-if="price_from < 400000">
+              $400k
+            </a-select-option>
+            <a-select-option value="450000" v-if="price_from < 450000">
+              $450k
+            </a-select-option>
+            <a-select-option value="500000" v-if="price_from < 500000">
+              $500k
+            </a-select-option>
+            <a-select-option value="550000" v-if="price_from < 550000">
+              $550k
+            </a-select-option>
+            <a-select-option value="600000" v-if="price_from < 600000">
+              $600k
+            </a-select-option>
+            <a-select-option value="650000" v-if="price_from < 650000">
+              $650k
             </a-select-option>
           </a-select>
         </div>
@@ -190,181 +216,66 @@
           </a-col>
           <a-col :span="18">
             <a-row :gutter="16">
-              <a-col :span="12">
-                <a-select
-                  v-model="filter.model_ids"
-                  style="width: 100%;"
-                  placeholder="Home Model Name"
-                  mode="multiple"
-                >
-                  <a-select-option
-                    v-for="model of models"
-                    :key="model.id"
-                    :value="model.id"
-                    >{{ model.title }}</a-select-option
-                  >
-                </a-select>
-              </a-col>
-              <a-col :span="12">
+              <a-col>
                 <div>
-                  <!-- <label>Square feet:</label> -->
+                  <label>Square feet:</label>
                   <a-select
-                    v-model="filter.home_size_range"
-                    style="width: 200px;"
-                    placeholder="Square feet"
-                    :max-tag-count="priceMaxTagCount"
-                    mode="multiple"
+                    v-model="square_from"
+                    style="width: 80px;"
+                    placeholder="Min"
                   >
-                    <a-select-option value="1000,1250">
-                      1000 - 1250
+                    <a-select-option value="1000">
+                      1000
                     </a-select-option>
-                    <a-select-option value="1250,1500">
-                      1250 - 1500
+                    <a-select-option value="1250">
+                      1250
                     </a-select-option>
-                    <a-select-option value="1500,1750">
-                      1500 - 1750
+                    <a-select-option value="1500">
+                      1500
                     </a-select-option>
-                    <a-select-option value="1750,2000">
-                      1750 - 2000
+                    <a-select-option value="1750">
+                      1750
                     </a-select-option>
-                    <a-select-option value="2000,2250">
-                      2000 - 2250
+                    <a-select-option value="2000">
+                      2000
                     </a-select-option>
-                    <a-select-option value="2250,2500">
-                      2250 - 2500
+                    <a-select-option value="2250">
+                      2250
                     </a-select-option>
-                    <a-select-option value="2500,5000">
-                      2500+
+                    <a-select-option value="2500">
+                      2500
+                    </a-select-option>
+                  </a-select>
+                  <a-select
+                    v-model="square_to"
+                    style="width: 80px;"
+                    placeholder="Max"
+                  >
+                    <a-select-option value="1250">
+                      1250
+                    </a-select-option>
+                    <a-select-option value="1500">
+                      1500
+                    </a-select-option>
+                    <a-select-option value="1750">
+                      1750
+                    </a-select-option>
+                    <a-select-option value="2000">
+                      2000
+                    </a-select-option>
+                    <a-select-option value="2250">
+                      2250
+                    </a-select-option>
+                    <a-select-option value="2500">
+                      2500
+                    </a-select-option>
+                    <a-select-option value="+">
+                      +
                     </a-select-option>
                   </a-select>
                 </div>
               </a-col>
             </a-row>
-          </a-col>
-        </a-row>
-        <a-row :gutter="16" style="padding: 5px 0;">
-          <a-col :span="6">
-            <a-select
-              v-model="filter.garage_parking_spaces"
-              style="width: 100%;"
-              placeholder="Garage"
-            >
-              <a-select-option value="1">1+</a-select-option>
-              <a-select-option value="2">2+</a-select-option>
-            </a-select>
-          </a-col>
-          <a-col :span="18">
-            <div class="lotdirection-wrapper">
-              <div>
-                <span style="padding-right:10px;">Lot direction:</span>
-              </div>
-              <a-checkbox-group v-model="filter.front_exposure">
-                <div>
-                  <a-checkbox
-                    value="North"
-                    @change="
-                      setActive({
-                        key: 'front_exposure',
-                        name: 'North',
-                        value: 'North',
-                      })
-                    "
-                  >
-                    North
-                  </a-checkbox>
-                  <a-checkbox
-                    value="Northeast"
-                    @change="
-                      setActive({
-                        key: 'front_exposure',
-                        name: 'Northeast',
-                        value: 'Northeast',
-                      })
-                    "
-                  >
-                    Northeast
-                  </a-checkbox>
-                </div>
-                <div>
-                  <a-checkbox
-                    value="East"
-                    @change="
-                      setActive({
-                        key: 'front_exposure',
-                        name: 'East',
-                        value: 'East',
-                      })
-                    "
-                  >
-                    East
-                  </a-checkbox>
-                  <a-checkbox
-                    value="Northwest"
-                    @change="
-                      setActive({
-                        key: 'front_exposure',
-                        name: 'Northwest',
-                        value: 'Northwest',
-                      })
-                    "
-                  >
-                    Northwest
-                  </a-checkbox>
-                </div>
-                <div>
-                  <a-checkbox
-                    value="South"
-                    @change="
-                      setActive({
-                        key: 'front_exposure',
-                        name: 'South',
-                        value: 'South',
-                      })
-                    "
-                  >
-                    South
-                  </a-checkbox>
-                  <a-checkbox
-                    value="Southeast"
-                    @change="
-                      setActive({
-                        key: 'front_exposure',
-                        name: 'Southeast',
-                        value: 'Southeast',
-                      })
-                    "
-                  >
-                    Southeast
-                  </a-checkbox>
-                </div>
-                <div>
-                  <a-checkbox
-                    value="West"
-                    @change="
-                      setActive({
-                        key: 'front_exposure',
-                        name: 'West',
-                        value: 'West',
-                      })
-                    "
-                  >
-                    West
-                  </a-checkbox>
-                  <a-checkbox
-                    value="Southwest"
-                    @change="
-                      setActive({
-                        key: 'front_exposure',
-                        name: 'Southwest',
-                        value: 'Southwest',
-                      })
-                    "
-                  >
-                    Southwest
-                  </a-checkbox>
-                </div>
-              </a-checkbox-group>
-            </div>
           </a-col>
         </a-row>
       </div>
@@ -412,34 +323,32 @@
         </a-row>
         <a-row>
           <div>
-            <!-- <label>Square feet:</label> -->
+            <label>Square feet:</label>
             <a-select
-              v-model="filter.home_size_range"
-              style="width: 200px;"
-              placeholder="Square feet"
-              :max-tag-count="priceMaxTagCount"
-              mode="multiple"
+              v-model="square_from"
+              style="width: 80px;"
+              placeholder="Min"
             >
-              <a-select-option value="1000,1250">
-                1000 - 1250
+              <a-select-option value="1000">
+                1000
               </a-select-option>
-              <a-select-option value="1250,1500">
-                1250 - 1500
+              <a-select-option value="1250">
+                1250
               </a-select-option>
-              <a-select-option value="1500,1750">
-                1500 - 1750
+              <a-select-option value="1500">
+                1500
               </a-select-option>
-              <a-select-option value="1750,2000">
-                1750 - 2000
+              <a-select-option value="1750">
+                1750
               </a-select-option>
-              <a-select-option value="2000,2250">
-                2000 - 2250
+              <a-select-option value="2000">
+                2000
               </a-select-option>
-              <a-select-option value="2250,2500">
-                2250 - 2500
+              <a-select-option value="2250">
+                2250
               </a-select-option>
-              <a-select-option value="2500,5000">
-                2500+
+              <a-select-option value="2500">
+                2500
               </a-select-option>
             </a-select>
             <a-select
@@ -1188,68 +1097,6 @@
         </a-row>
       </div>
 
-      <a-row :gutter="16" style="padding: 10px 0;">
-        <a-col :xs="{ span: 12 }" :lg="{ span: 6 }">
-          <a-input-number
-            v-model="filter.lot_size"
-            placeholder="Min. Lot Size m2"
-            style="width: 100%;"
-          />
-        </a-col>
-        <a-col :xs="{ span: 12 }" :lg="{ span: 6 }">
-          <a-select
-            v-model="filter.lot_shape"
-            placeholder="Lot Shape"
-            style="width: 100%;"
-          >
-            <a-select-option value="">Any</a-select-option>
-            <a-select-option value="regular">Regular</a-select-option>
-            <a-select-option value="pie">Pie</a-select-option>
-            <a-select-option value="reverse_pie">Reverse Pie</a-select-option>
-          </a-select>
-        </a-col>
-        <a-col :xs="{ span: 12 }" :lg="{ span: 6 }">
-          <a-select
-            v-model="filter.lot_location"
-            placeholder="Lot Location"
-            style="width: 100%;"
-          >
-            <a-select-option value="">Any</a-select-option>
-            <a-select-option value="corner_end_lot"
-              >Corner End Lot</a-select-option
-            >
-            <a-select-option value="corner_end_alley"
-              >Corner End Alley</a-select-option
-            >
-            <a-select-option value="interior">Interior</a-select-option>
-          </a-select>
-        </a-col>
-        <a-col :xs="{ span: 12 }" :lg="{ span: 6 }">
-          <a-select
-            v-model="filter.walkout_lot"
-            placeholder="Walkout Lot"
-            style="width: 100%;"
-          >
-            <a-select-option value="">Any</a-select-option>
-            <a-select-option value="yes">YES</a-select-option>
-            <a-select-option value="no">NO</a-select-option>
-            <a-select-option value="partial">Partial Walkout</a-select-option>
-          </a-select>
-        </a-col>
-      </a-row>
-
-      <a-row :gutter="16">
-        <a-col :xs="{ span: 12 }" :lg="{ span: 6 }">
-          <a-checkbox v-model="zero_line">Zero Lot Line</a-checkbox>
-        </a-col>
-        <a-col :xs="{ span: 12 }" :lg="{ span: 6 }">
-          <a-checkbox v-model="park_view">Park View</a-checkbox>
-        </a-col>
-        <a-col :xs="{ span: 12 }" :lg="{ span: 6 }">
-          <a-checkbox v-model="lake_view">Lake View</a-checkbox>
-        </a-col>
-        <a-col :xs="{ span: 12 }" :lg="{ span: 6 }"> </a-col>
-      </a-row>
       <div class="filter-footer">
         <a class="apply-btn" @click.prevent="applyFilter">Apply</a>
         <a class="clear-btn" @click.prevent="clearAll">Clear all filters</a>
@@ -1294,7 +1141,6 @@ export default {
       search: "",
       communityMaxTagCount: 4,
       possessiondateMaxTagCount: 1,
-      priceMaxTagCount: 1,
       models: [],
       price_from: [],
       price_to: [],
@@ -1474,20 +1320,23 @@ export default {
               is_guaranted: this.filter.is_guaranted,
             }),
           });
+          console.log(
+            "current route--",
+            this.$router.currentRoute.query.communities
+          );
         }
-        console.log("current route--", this.$router);
+        console.log("filter query--", this.$router);
       },
       deep: true,
     },
   },
   mounted() {
     let $this = this;
-
+    console.log("params--", this.$route);
     axios
       .get("/wp-json/templatev2/v1/communities")
       .then((response) => {
         $this.communities = response.data;
-        console.log("$this.communities", $this.communities);
         bus.$emit("communities", $this.communities);
         response.data.forEach((community) => {
           $this.areas[community.area].communities[community.id] = community;
@@ -1775,7 +1624,6 @@ export default {
           });
         });
       $(window).on("unload", function() {
-        console.log("window unload");
         $this.filter.key = $this.filterKey;
         $this.filter.type = $this.$route.name;
         $this.filter.communities = [];
@@ -2114,7 +1962,7 @@ input {
   }
 }
 .features-wrapper {
-  padding: 0px 0;
+  padding: 10px 0;
   display: flex;
 }
 @media all and (max-width: 700px) {

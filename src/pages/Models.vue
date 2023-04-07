@@ -1,6 +1,11 @@
 <template>
   <div class="page">
-    <div class="mobile-buttons">
+    <div class="banner_wrapper">
+      <img src="../assets/banner.png" alt="Banner" class="banner_img" />
+      <h2 class="banner_title">Models</h2>
+      <quick-filter @onRefresh="onRefresh" />
+    </div>
+    <div class="mobile-buttons" hidden>
       <a-button
         style="width: 98%;"
         class="filtersBtn"
@@ -21,16 +26,18 @@
 </template>
 
 <script type="text/javascript">
-import FilterContainer from "../components/FilterContainer.vue";
+import FilterContainer from "../components/ModelsFilterContainer.vue";
 import ResultContainer from "../components/ResultContainer.vue";
 import Button from "ant-design-vue/lib/button";
 import "ant-design-vue/lib/button/style/css";
+import QuickFilter from "../components/QuickFilter.vue";
 
 export default {
   components: {
     "filter-container": FilterContainer,
     "result-container": ResultContainer,
     "a-button": Button,
+    "quick-filter": QuickFilter,
   },
   data() {
     return {
@@ -61,7 +68,7 @@ export default {
       let mainContainer = document.getElementsByClassName("main-container")[0];
       $(".main-container").css(
         "height",
-        doc.offsetHeight - mainContainer.offsetTop - 200 + "px"
+        doc.offsetHeight - mainContainer.offsetTop - 150 + "px"
       );
     },
     onLoading() {
@@ -86,7 +93,6 @@ export default {
 
 .result-container {
   flex-grow: 1;
-  width: auto !important;
 }
 </style>
 
@@ -94,7 +100,7 @@ export default {
 .models-container {
   .results {
     .homes {
-      grid-template-columns: repeat(auto-fill, 23.5%) !important;
+      grid-template-columns: repeat(auto-fill, 48%) !important;
     }
   }
 }
@@ -103,7 +109,7 @@ export default {
   .models-container {
     .results {
       .homes {
-        grid-template-columns: repeat(auto-fill, 32%) !important;
+        grid-template-columns: repeat(auto-fill, 48%) !important;
       }
     }
   }
@@ -113,7 +119,7 @@ export default {
   .models-container {
     .results {
       .homes {
-        grid-template-columns: repeat(auto-fill, 49%) !important;
+        grid-template-columns: repeat(auto-fill, 48%) !important;
       }
     }
   }
